@@ -1,0 +1,36 @@
+{
+    "code": 0,
+    "msg": "SUCCESS",
+    "data": [
+      {
+        "id": 2068,
+        "name": "内科",
+        "pid": 2067,
+        "level": 1,
+        "child": [
+          {
+            "id": 2070,
+            "name": "呼吸内科",
+            "pid": 2068,
+            "level": 2,
+            "child": null
+          }
+        ]
+      },
+      {
+        "id": 2069,
+        "name": "外科",
+        "pid": 2067,
+        "level": 1,
+        "child": [
+          {
+            "id": 2071,
+            "name": "呼吸外科",
+            "pid": 2069,
+            "level": 2,
+            "child": null
+          }
+        ]
+      }
+    ]
+  }

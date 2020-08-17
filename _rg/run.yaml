@@ -1,0 +1,109 @@
+_env:
+    - !R.env
+        _name : "base"
+        _res  :
+            - !R.vars
+                PRJ_NAME : "admin_ui"
+            - !R.include
+                _path  :
+                    - "./_rg/base.yaml"
+    - !R.env
+        _name : "dev"
+        _mix  : "base,_dev"
+        _res  :
+            - !R.vars
+                ENV: "dev"
+                DOMAIN_PREFIX:  "${USER}."
+                DOMAIN_SUFFIX:  "dev"
+                NPM_ENV: "dev"
+
+    - !R.env
+        _name    : "demo"
+        _mix     : "base,_demo"
+        _res :
+            - !R.vars
+                ENV: "demo"
+                DOMAIN_PREFIX:  "demo."
+                DOMAIN_SUFFIX:  "dev"
+                NPM_ENV: "dev"
+
+    - !R.env
+        _name    : "beta"
+        _mix     : "base,_online"
+        _res :
+            - !R.vars
+                ENV: "beta"
+                DOMAIN_PREFIX:  "beta."
+                DOMAIN_SUFFIX:  "com"
+                NPM_ENV: "beta"
+
+    - !R.env
+        _name    : "beta_aliyun"
+        _mix     : "base,_online"
+        _res :
+            - !R.vars
+                ENV: "beta"
+                DOMAIN_PREFIX:  "beta."
+                DOMAIN_SUFFIX:  "com"
+                NPM_ENV: "beta"
+
+    - !R.env
+        _name    : "online"
+        _mix     : "base,_online"
+        _res :
+            - !R.vars
+                ENV: "online"
+                DOMAIN_PREFIX:  ""
+                DOMAIN_SUFFIX:  "com"
+                NPM_ENV: "start"
+
+_sys:
+    -  !R.system
+        _name : "front"
+        _res  :
+            - !R.vars
+                DOMAIN   : "hybrid.${DOMAIN_PREFIX}yxt.vodjk.${DOMAIN_SUFFIX}"
+                SYS_NAME : "front"
+                SYS_PORT : "80"
+                NPM_PORT : "8080"
+            # - !R.using
+            #     modul : "ngx"
+            # - !R.path
+            #     dst :  "${PRJ_ROOT}/tmp/"
+            #     chmod : "a+w"
+            # - !R.file_tpl
+            #     tpl    : "${PRJ_ROOT}/conf/tpls/tpl_index.js"
+            #     dst    : "${PRJ_ROOT}/src/front/config/index.js"
+            # - !R.shell
+            #     script : "${PRJ_ROOT}/scripts/bin/run_front.sh"
+            # - !R.daemon_php
+            #    confpath : "${USE_ROOT}"
+            #    script   : "${PRJ_ROOT}/scripts/daemon/demo.php"
+            #    tag      : "demo" #注意需要以daemon的名称作为一个tag标识
+            #    worker   : 2
+            #- !R.crontab
+            #    cron : "${PRJ_ROOT}/scripts/crontab/_crontab"
+            #    sudo: true
+
+
+    -  !R.system
+        _name : "test"
+        _res  :
+            - !R.vars
+                SYS_NAME : "test"
+            - !R.using
+                modul : "yaf"
+            - !R.using
+                modul : "phpunit"
+
+    - !R.system
+        _name    : "init"
+        _limit:
+            envs: "demo,beta,online"
+        _res :
+            - !R.using
+                modul : "mysql"
+                args : !R.vars
+                    DB_NAME: "${PRJ_NAME}_${USER}"
+            #- !R.shell
+            #    script : "${PRJ_ROOT}/src/application/library/composer_update.sh"

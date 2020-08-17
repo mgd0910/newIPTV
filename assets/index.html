@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;"> -->
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=10"> -->
+  <title>IPTV</title>
+  <style>
+    #divId{
+      color: red;
+      background-color: #fff;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" scroll="no">
+  <div id="divId"></div>
+  <div id="app">
+    
+  </div>
+</body>
+
+</html>
+<script>
+  setTimeout(() => {
+    onerror = function(msg, url, row,col) {
+      var txt = '<div style="color: rgb(232, 232, 232); line-height: 3.2; white-space: pre; font-family: Menlo, Consolas, monospace; font-size: 13px; position: fixed; z-index: 9999; padding: 10px; left: 0px; right: 0px; top: 0px; bottom: 0px; overflow: auto; background: rgba(0, 0, 0, 0.85098);">';
+      txt += '<span style="background-color:#E36049; color:#fff; padding:2px 4px; border-radius: 2px">ERROR</span> in ' + url + '\n';
+      txt += ' <span style="color:#E36049;">✘</span> <u><span style="color:#6D7891;">' + msg + '</span></u>  in line ' + row + ':' + col;
+      txt += '</div>';
+      document.getElementById("divId").innerHTML = txt
+      document.body.innerHTML = txt;
+      // return true;  //加上这句控制台就不会报错
+    }
+  }, 200);
+  
+</script>
